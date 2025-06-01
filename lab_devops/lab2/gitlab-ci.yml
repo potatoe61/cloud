@@ -1,0 +1,50 @@
+stages:
+  - build
+  - test
+  - deploy
+
+deploy-job:
+stage: deploy
+image: tmaier/docker-compose:latest
+variables:
+DOCKER_DRIVER: overlay2
+tags:
+  - docker_0910
+script:
+  - echo "Deploying application..."
+  - ls -la
+  - docker-compose rm -sf
+  - docker-compose up -d
+  - echo "Application successfully deployed!"
+only:
+  - main
+  - develop
+
+clear-job:
+stage: deploy
+image: tmaier/docker-compose:latest
+variables:
+DOCKER_DRIVER: overlay2
+tags:
+  - docker_0910
+script:
+  - docker-compose rm -sf
+when: manual
+only:
+  - main
+  - develop
+
+test-job:
+stage: test
+image: alpine:latest
+tags:
+  - docker_0910
+script:
+  - |
+  if [ -f .gitlab-ci.yml ]; then
+  echo "успех"
+  else
+  echo "косяк"
+  exit 1  # Завершение с ошибкой
+  fi
+allow_failure: false
