@@ -16,3 +16,6 @@
 
 Файл из первой лабы: [docker-compose.yaml](docker-compose.yaml)
 Файл из второй лабы: [gitlab-ci.yml](gitlab-ci.yml)
+
+И ссылка на гитлаб:
+https://gitlab.com/ckakqrdragon-group/xd
